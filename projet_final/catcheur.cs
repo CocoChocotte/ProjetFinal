@@ -9,6 +9,7 @@ namespace projet_final
 		public int PV { get; set; }
 		public int Attaque { get; set; }
 		public int Defense { get; set; }
+        public int NombreSamediAttente { get; set; }
 
 
 
@@ -31,6 +32,7 @@ namespace projet_final
 				Attaque = 5;
 				Defense = 1;
 			}
+            NombreSamediAttente = 0;
 		}
 
         public void afficher ()
