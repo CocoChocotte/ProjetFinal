@@ -1,0 +1,16 @@
+﻿<Properties StartupConfiguration="{47445488-7E25-4DE2-8E4C-C3D98152DB15}|Default">
+  <MonoDevelop.Ide.ItemProperties.projet__final PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="projet_final/techniqueSpeciale.cs">
+    <Files>
+      <File FileName="projet_final/Program.cs" Line="8" Column="9" />
+      <File FileName="projet_final/catcheur.cs" Line="13" Column="9" />
+      <File FileName="projet_final/techniqueSpeciale.cs" Line="6" Column="9" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>
