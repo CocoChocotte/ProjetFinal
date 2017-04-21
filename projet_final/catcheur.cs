@@ -10,7 +10,7 @@ namespace projet_final
 		public int Attaque { get; set; }
 		public int Defense { get; set; }
 
-        // Test branch dev
+
 
 
 		public catcheur(string nom, string type, string etat)

@@ -7,6 +7,8 @@ namespace projet_final
 
 		public techniqueSpeciale()
 		{
+
+
 		}
 	}
 }
