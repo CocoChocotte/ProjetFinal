@@ -52,6 +52,7 @@
     <Compile Include="catcheur.cs" />
     <Compile Include="techniqueSpeciale.cs" />
     <Compile Include="saisonEncours.cs" />
+    <Compile Include="match.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

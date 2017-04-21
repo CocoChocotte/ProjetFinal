@@ -33,6 +33,11 @@ namespace projet_final
 			}
 		}
 
+        public void afficher ()
+        {
+            Console.WriteLine(Nom + " - " + Type + " - " + Etat + " - " +PV);
+        }
+
 
 
 

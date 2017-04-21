@@ -6,12 +6,14 @@ namespace projet_final
         public int NumeroSamediSaison { get; set; }
         public double PourcentageSaison { get; set; }
         public int NombreSaison { get; set; }
+        public int ArgentActuel { get; set; }
 
-        public saisonEncours(int samedi, double saison, int nombre)
+        public saisonEncours()
         {
-            NumeroSamediSaison = samedi;
-            PourcentageSaison = saison;
-            NombreSaison = nombre;
+            NumeroSamediSaison = 0;
+            PourcentageSaison = 0.0;
+            NombreSaison = 0;
+            ArgentActuel = 0;
         }
     }
 }
