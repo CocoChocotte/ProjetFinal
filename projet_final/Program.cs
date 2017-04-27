@@ -1,76 +1,87 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace projet_final
 {
-	class MainClass
-	{
+    class MainClass
+    {
 
-        static catcheur[] creationCatcheur(){
+        static List<catcheur> creationCatcheur()
+        {
 
-            catcheur[] tab = new catcheur[11];
-            catcheur catcheurUn = new catcheur("L'ordannateur des pompes funèbres", "brute", "operationel");
-			catcheur catcheurDeux = new catcheur("Judy Sunny", "brute", "operationel");
-			catcheur catcheurTrois = new catcheur("Triple hache", "agile", "operationel");
-			catcheur catcheurQuatre = new catcheur("Dead poule", "agile", "operationel");
-			catcheur catcheurCinq = new catcheur("Jarvan cinquième du nom", "brute", "en convalescence");
-			catcheur catcheurSix = new catcheur("Madusa", "agile", "operationel");
-			catcheur catcheurSept = new catcheur("John Cinéma", "agile", "en convalescence");
-			catcheur catcheurHuit = new catcheur("Jeff Radis", "Brute", "en convalescence");
-			catcheur catcheurNeuf = new catcheur("Raie Mystérieuse", "brute", "operationel");
-			catcheur catcheurDix = new catcheur("Chris Hart", "brute", "operationel");
-			catcheur catcheurOnze = new catcheur("Bret Benoit", "agile", "operationel");
-            tab[0] = catcheurUn;
-            tab[1] = catcheurDeux;
-            tab[2] = catcheurTrois;
-            tab[3] = catcheurQuatre;
-            tab[4] = catcheurCinq;
-            tab[5] = catcheurSix;
-            tab[6] = catcheurSept;
-            tab[7] = catcheurHuit;
-            tab[8] = catcheurNeuf;
-            tab[9] = catcheurDix;
-            tab[10] = catcheurOnze;
+            List<catcheur> recapitulatifCatcheur = new List<catcheur>();
+            recapitulatifCatcheur.Add(new catcheur("L'ordannateur des pompes funèbres", "brute", "operationel"));
+            recapitulatifCatcheur.Add(new catcheur("Judy Sunny", "brute", "operationel"));
+            recapitulatifCatcheur.Add(new catcheur("Triple hache", "agile", "operationel"));
+            recapitulatifCatcheur.Add(new catcheur("Dead poule", "agile", "operationel"));
+            recapitulatifCatcheur.Add(new catcheur("Jarvan Cinquième du nom","brute","enConvalescence"));
+            recapitulatifCatcheur.Add(new catcheur("Madusa", "agile", "operationel"));
+            recapitulatifCatcheur.Add(new catcheur("John Cinéma", "agile", "enConvalescence"));
+            recapitulatifCatcheur.Add(new catcheur("Jeff Radis", "Brute", "enConvalescence"));
+            recapitulatifCatcheur.Add(new catcheur("Raie Mystérieuse", "brute", "operationel"));
+            recapitulatifCatcheur.Add(new catcheur("Chris Hart", "brute", "operationel"));
+            recapitulatifCatcheur.Add(new catcheur("Bret Benoit", "agile", "operationel"));
 
+            recapitulatifCatcheur.Sort((catcheur1, catcheur2) => string.Compare(catcheur1.Nom, catcheur2.Nom));
 
-			return tab;
+            return (recapitulatifCatcheur);
 
         }
 
-        static void afficherCatcheur (catcheur[] tab)
+        static void afficherCatcheur(List<catcheur> liste)
         {
             Console.WriteLine("Nom  -  Type  -  Etat  - PV");
-            for (int i = 0; i < tab.Length; i++)
+            for (int i = 0; i < liste.Count; i++)
             {
-                tab[i].afficher();   
+                liste[i].afficher();
             }
 
         }
 
-        static catcheur choisirCatcheur ( catcheur[] tab)
+        static catcheur choisirCatcheur(List<catcheur> liste)
         {
             Console.WriteLine("** Quel catcheur avez vous choisis ? **");
             string reponseString = "";
             reponseString = Console.ReadLine();
             int reponse = int.Parse(reponseString);
 
-            while (tab[reponse - 1].Etat != "operationel")
+            while (liste[reponse - 1].EtatCatcheur != "operationel")
             {
                 Console.WriteLine("** Catcheur non operationel pour un combat **");
-				reponseString = Console.ReadLine();
-				int reponse = int.Parse(reponseString);
+                reponseString = Console.ReadLine();
+                reponse = int.Parse(reponseString);
             }
 
-            catcheur choix = tab[reponse - 1];
+            catcheur choix = List[reponse - 1];
             return choix;
 
         }
 
 
+        static match matchEnCours (catcheur un, catcheur deux){
+            match match = new match();
+
+            // deroulement du match
+
+
+            return match;
+        }
+
+        static void historiqueMatch(List<match> liste)
+		{
+			for (int i = 0; i < liste.Count; i++)
+			{
+				liste[i].afficher();
+			}
+
+		}
+
 		public static void Main()
 		{
 
-            catcheur[] tableauDesCatcheurs = creationCatcheur();
+            List<catcheur> listeCatcheur = creationCatcheur();
             saisonEncours jeu = new saisonEncours();
+            List<match> recapitulatifMatch = new List<match>();
 
 
            // tableauDesCatcheurs[0].afficher() ;
@@ -78,7 +89,7 @@ namespace projet_final
             Console.WriteLine("*****************************************");
             Console.WriteLine("** Bonjour que voulez vous faire ? **");
             Console.WriteLine("** 0 : Creer match et lancer le combat **");
-            Console.WriteLine("** 1 : Consulter historique **");
+            Console.WriteLine("** 1 : Consulter historique des matchs**");
             Console.WriteLine("** 2 : Consulter contact **");
             Console.WriteLine("** 3 : Quitter le jeu **");
             Console.WriteLine("*****************************************");
@@ -95,21 +106,32 @@ namespace projet_final
 			switch (reponse)
 			{
 				case 0:
-                    afficherCatcheur(tableauDesCatcheurs);
+                    afficherCatcheur(listeCatcheur);
 					Console.WriteLine("** Choix premier catcheur :  **");
-                    catcheur premierCatcheurChoisit = choisirCatcheur(tableauDesCatcheurs);
+                    catcheur premierCatcheurChoisit = choisirCatcheur(listeCatcheur);
                     Console.WriteLine("** Choix second catcheur :  **");
-                    catcheur secondCatcheurChoisit = choisirCatcheur(tableauDesCatcheurs);
+                    catcheur secondCatcheurChoisit = choisirCatcheur(listeCatcheur);
 
                     Console.WriteLine("** Lancement du match:  **");
+                    // coder fonction matchEnCours
 
 					break;
 				case 1:
-					
+                    historiqueMatch(recapitulatifMatch);
+					// affichage particulier a coder: filtrage : Vainqueur par K.O  et Vainqueur par délai 
 					break;
 				case 2:
-					
-					break;
+                    Console.WriteLine("Cherchez vous un catcheur en particulier oui/non?");
+                    reponseString = Console.ReadLine();
+                    if (reponseString == "oui")
+                    {
+                       Console.WriteLine("Cherchez vous un catcheur en particulier oui/non?");
+                    }
+                    else 
+                    {
+						afficherCatcheur(listeCatcheur);
+                    }
+                        break;
 				case 3:
 					
 					break;

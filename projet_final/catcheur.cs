@@ -5,8 +5,10 @@ namespace projet_final
 	{
 		public string Nom { get; set; }
 		public string Type { get; set; }
-		public string Etat { get; set; }
-		public int PV { get; set; }
+       // public enum etat{operationel, enConvalescence, mort }
+       // public etat EtatCatcheur { get; set; }
+        public String EtatCatcheur { get; set; }
+        public int PV { get; set; }
 		public int Attaque { get; set; }
 		public int Defense { get; set; }
         public int NombreSamediAttente { get; set; }
@@ -14,11 +16,11 @@ namespace projet_final
 
 
 
-		public catcheur(string nom, string type, string etat)
+        public catcheur(string nom, string type, string etat)
 		{
 			Nom = nom;
 			Type = type;
-			Etat = etat;
+            EtatCatcheur = etat;
 
 			if (Type == "agile")
 			{
@@ -37,7 +39,7 @@ namespace projet_final
 
         public void afficher ()
         {
-            Console.WriteLine(Nom + " - " + Type + " - " + Etat + " - " +PV);
+            Console.WriteLine(Nom + " - " + Type + " - " + EtatCatcheur + " - " +PV);
         }
 
 
