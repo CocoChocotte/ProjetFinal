@@ -42,6 +42,18 @@ namespace projet_final
             Console.WriteLine(Nom + " - " + Type + " - " + EtatCatcheur + " - " +PV);
         }
 
+        public void RestaurePV()
+        {
+			if (Type == "agile")
+			{
+				PV = 125;
+			}
+			else
+			{
+				PV = 100;
+			}
+        }
+
 
 
 

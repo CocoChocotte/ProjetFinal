@@ -10,7 +10,7 @@ namespace projet_final
         public string Perdant { get; set; }
         public int NbreIteration { get; set; }
         public string TypeVictoire { get; set; }
-        public int ArgentRecolte { get; set; }
+        public double ArgentRecolte { get; set; }
 
         public match()
         {
