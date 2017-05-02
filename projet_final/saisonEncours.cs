@@ -23,7 +23,7 @@ namespace projet_final
         public void Fin ()
         {
             Console.WriteLine("Vous avez reussit a survivre " + NombreSaison);
-            Console.WriteLine("Il s'est derouler " + NombreCombat);
+            Console.WriteLine("Il s'est derouler " + NombreCombat + " combats");
             if (ArgentActuel != 0.0)
             {
                 Console.WriteLine("Vous avez gagne : " + ArgentActuel + "€");

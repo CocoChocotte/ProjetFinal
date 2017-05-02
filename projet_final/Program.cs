@@ -50,7 +50,7 @@ namespace projet_final
             reponseString = Console.ReadLine();
             int reponse = int.Parse(reponseString);
 
-            while (liste[reponse - 1].EtatCatcheur != "operationel")
+            while (liste[reponse].EtatCatcheur != "operationel")
             {
                 Console.WriteLine("** Catcheur non operationel pour un combat **");
                 Console.WriteLine("** Choisissez un autre combattant: **");
@@ -58,7 +58,9 @@ namespace projet_final
                 reponse = int.Parse(reponseString);
             }
 
-            catcheur choix = liste[reponse - 1];
+            catcheur choix = liste[reponse];
+            Console.WriteLine("Vous avez choisit: ");
+            liste[reponse].afficher();
             return choix;
 
         }
@@ -110,7 +112,7 @@ namespace projet_final
 
         }
 
-        static match matchEnCours(catcheur un, catcheur deux)
+        static match matchDuSamedi(catcheur un, catcheur deux)
         {
             match match = new match();
             match.NbreIteration = 0;
@@ -122,22 +124,26 @@ namespace projet_final
 
             while ((match.NbreIteration != 20) && (un.PV > 0) && (deux.PV > 20))
             {
+                Console.ReadLine();
                 match.NbreIteration++;
                 Console.WriteLine("Tour numero: " + match.NbreIteration);
                 if (randomInitUn >= randomInitDeux)
                 {
                     Console.WriteLine(un.Nom + "commence ce tour ! ");
                     action(un, deux, actionPrecedenteUn, actionPrecedenteDeux);
+                    action(deux, un, actionPrecedenteDeux, actionPrecedenteUn);
                 }
 
                 else
                 {
                     Console.WriteLine(deux.Nom + "commence ce tour ! ");
                     action(deux, un, actionPrecedenteDeux, actionPrecedenteUn);
+                    action(un, deux, actionPrecedenteUn, actionPrecedenteDeux);
                 }
                 match.ArgentRecolte += 5000.0;
 				randomInitUn = new Random().Next(101);
 				randomInitDeux = new Random().Next(101);
+
             }
 
             if (match.NbreIteration == 20)
@@ -191,11 +197,11 @@ namespace projet_final
             }
             if (compteNombreValable > 2)
             {
-                return (true);
+                return (false);
             }
             else
             {
-                return (false);
+                return (true);
             }
         }
 
@@ -239,12 +245,13 @@ namespace projet_final
             saisonEncours jeu = new saisonEncours();
             List<match> recapitulatifMatch = new List<match>();
             bool jeuFini = false;
-            bool combatSemaineFait;
+            bool combatSemaineFait = false;
+            match samedi = new match();
 
             while (!jeuFini)
             {
-                combatSemaineFait = false;
-
+                
+                Console.WriteLine("Debut de la semaine ! ");
                 for (int i = 0; i < listeCatcheur.Count; i++)
                 {
                     if (listeCatcheur[i].NombreSamediAttente != 0)
@@ -287,7 +294,8 @@ namespace projet_final
                             catcheur secondCatcheurChoisit = choisirCatcheur(listeCatcheur);
 
                             Console.WriteLine("** Lancement du match:  **");
-                            // coder fonction matchEnCours
+                            samedi = matchDuSamedi(premierCatcheurChoisit,secondCatcheurChoisit);
+                            recapitulatifMatch.Add(samedi);
 
                             combatSemaineFait = true;
                             break;
@@ -334,7 +342,27 @@ namespace projet_final
                     }
 
                 }
+
+				jeu.ArgentActuel += recapitulatifMatch.Last().ArgentRecolte;
+				jeu.NumeroSamediSaison++;
+                jeu.NombreCombat++;
+                if (jeu.NumeroSamediSaison == 8)
+                {
+                    jeu.NumeroSamediSaison = 1;
+                    jeu.NombreSaison++;
+                    if (jeu.PourcentageSaison < 1.3)
+                    {
+                        jeu.PourcentageSaison = 1.3;
+                    }
+                    else
+                    {
+                        jeu.ArgentActuel = jeu.ArgentActuel * 1.3;
+                    }
+                }
+
+                combatSemaineFait = false;
                 jeuFini = TestJeuFini(listeCatcheur);
+
 
             }
 
