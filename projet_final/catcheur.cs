@@ -54,6 +54,11 @@ namespace projet_final
 			}
         }
 
+        public void afficherPV ()
+        {
+            Console.WriteLine("Il reste " + PV + " a " + Nom );
+        }
+
 
 
 

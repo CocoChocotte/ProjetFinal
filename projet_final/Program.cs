@@ -71,9 +71,10 @@ namespace projet_final
 
             if (unAttaque == 1)
             {
-                Console.WriteLine(un.Nom + "Attaque son adversaire");
+                Console.WriteLine(un.Nom + " attaque son adversaire");
                 if (actionPrecedenteDeux == "defense")
                 {
+                    Console.WriteLine(deux.Nom + " avait preparer sa defence !");
                     deux.PV = deux.PV - un.Attaque + deux.Defense;
                 }
                 else
@@ -84,7 +85,7 @@ namespace projet_final
             }
             else
             {
-                Console.WriteLine(deux.Nom + "prepare sa defense");
+                Console.WriteLine(deux.Nom + " prepare sa defense");
                 actionPrecedenteUn = "defense";
             }
         }
@@ -140,6 +141,9 @@ namespace projet_final
                     action(deux, un, actionPrecedenteDeux, actionPrecedenteUn);
                     action(un, deux, actionPrecedenteUn, actionPrecedenteDeux);
                 }
+
+                un.afficherPV();
+                deux.afficherPV();
                 match.ArgentRecolte += 5000.0;
 				randomInitUn = new Random().Next(101);
 				randomInitDeux = new Random().Next(101);
