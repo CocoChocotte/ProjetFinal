@@ -53,6 +53,8 @@
     <Compile Include="techniqueSpeciale.cs" />
     <Compile Include="saisonEncours.cs" />
     <Compile Include="match.cs" />
+    <Compile Include="intitialisation.cs" />
+    <Compile Include="affichages.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

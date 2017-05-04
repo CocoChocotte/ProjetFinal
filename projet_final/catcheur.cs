@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Linq;
 namespace projet_final
 {
-	class catcheur
+	public class catcheur
 	{
 		public string Nom { get; set; }
+        public string Numero { get; set; }
 		public string Type { get; set; }
-       // public enum etat{operationel, enConvalescence, mort }
-       // public etat EtatCatcheur { get; set; }
         public String EtatCatcheur { get; set; }
         public int PV { get; set; }
 		public int Attaque { get; set; }
@@ -16,9 +18,11 @@ namespace projet_final
 
 
 
-        public catcheur(string nom, string type, string etat)
+
+        public catcheur(string nom,string num, string type, string etat)
 		{
 			Nom = nom;
+            Numero = num;
 			Type = type;
             EtatCatcheur = etat;
 
@@ -60,6 +64,28 @@ namespace projet_final
         }
 
 
+
+		public static catcheur choisirCatcheur(List<catcheur> liste)
+		{
+			Console.WriteLine("** Quel catcheur avez vous choisis ? **");
+			string reponseString = "";
+			reponseString = Console.ReadLine();
+			int reponse = int.Parse(reponseString);
+
+			while (liste[reponse].EtatCatcheur != "operationel")
+			{
+				Console.WriteLine("** Catcheur non operationel pour un combat **");
+				Console.WriteLine("** Choisissez un autre combattant: **");
+				reponseString = Console.ReadLine();
+				reponse = int.Parse(reponseString);
+			}
+
+			catcheur choix = liste[reponse];
+			Console.WriteLine("Vous avez choisit: ");
+			liste[reponse].afficher();
+			return choix;
+
+		}
 
 
 	}

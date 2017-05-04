@@ -2,11 +2,13 @@
   <MonoDevelop.Ide.ItemProperties.projet__final PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="projet_catcheurs État">
     <Files>
-      <File FileName="projet_final/Program.cs" Line="49" Column="39" />
-      <File FileName="projet_final/catcheur.cs" Line="59" Column="62" />
-      <File FileName="projet_final/techniqueSpeciale.cs" Line="1" Column="1" />
-      <File FileName="projet_final/saisonEncours.cs" Line="26" Column="72" />
-      <File FileName="projet_final/match.cs" Line="17" Column="13" />
+      <File FileName="projet_final/Program.cs" Line="44" Column="44" />
+      <File FileName="projet_final/techniqueSpeciale.cs" Line="231" Column="2" />
+      <File FileName="projet_final/saisonEncours.cs" Line="61" Column="8" />
+      <File FileName="projet_final/match.cs" Line="55" Column="34" />
+      <File FileName="projet_final/catcheur.cs" Line="8" Column="3" />
+      <File FileName="projet_final/intitialisation.cs" Line="14" Column="100" />
+      <File FileName="projet_final/affichages.cs" Line="72" Column="9" />
       <File FileName="projet_catcheurs État" />
     </Files>
   </MonoDevelop.Ide.Workbench>

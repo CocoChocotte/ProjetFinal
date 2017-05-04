@@ -7,254 +7,19 @@ namespace projet_final
 {
     class MainClass
     {
-
-        // creation de la liste des catcheurs
-        static List<catcheur> creationCatcheur()
-        {
-            List<catcheur> recapitulatifCatcheur = new List<catcheur>();
-            recapitulatifCatcheur.Add(new catcheur("L'ordannateur des pompes funèbres", "brute", "operationel"));
-            recapitulatifCatcheur.Add(new catcheur("Judy Sunny", "brute", "operationel"));
-            recapitulatifCatcheur.Add(new catcheur("Triple hache", "agile", "operationel"));
-            recapitulatifCatcheur.Add(new catcheur("Dead poule", "agile", "operationel"));
-            recapitulatifCatcheur.Add(new catcheur("Jarvan Cinquième du nom", "brute", "enConvalescence"));
-            recapitulatifCatcheur.Add(new catcheur("Madusa", "agile", "operationel"));
-            recapitulatifCatcheur.Add(new catcheur("John Cinéma", "agile", "enConvalescence"));
-            recapitulatifCatcheur.Add(new catcheur("Jeff Radis", "Brute", "enConvalescence"));
-            recapitulatifCatcheur.Add(new catcheur("Raie Mystérieuse", "brute", "operationel"));
-            recapitulatifCatcheur.Add(new catcheur("Chris Hart", "brute", "operationel"));
-            recapitulatifCatcheur.Add(new catcheur("Bret Benoit", "agile", "operationel"));
-
-            //trie par ordre alphabetique
-            recapitulatifCatcheur.Sort((catcheur1, catcheur2) => string.Compare(catcheur1.Nom, catcheur2.Nom));
-
-            return (recapitulatifCatcheur);
-
-        }
-
-        //affiche toute la liste des catcheurs
-        static void afficherCatcheurs(List<catcheur> liste)
-        {
-            Console.WriteLine("Numero - Nom  -  Type  -  Etat  - PV");
-            for (int i = 0; i < liste.Count; i++)
-            {
-                Console.Write(i + ": ");
-                liste[i].afficher();
-            }
-
-        }
-
-        static catcheur choisirCatcheur(List<catcheur> liste)
-        {
-            Console.WriteLine("** Quel catcheur avez vous choisis ? **");
-            string reponseString = "";
-            reponseString = Console.ReadLine();
-            int reponse = int.Parse(reponseString);
-
-            while (liste[reponse].EtatCatcheur != "operationel")
-            {
-                Console.WriteLine("** Catcheur non operationel pour un combat **");
-                Console.WriteLine("** Choisissez un autre combattant: **");
-                reponseString = Console.ReadLine();
-                reponse = int.Parse(reponseString);
-            }
-
-            catcheur choix = liste[reponse];
-            Console.WriteLine("Vous avez choisit: ");
-            liste[reponse].afficher();
-            return choix;
-
-        }
-
-        static void action(catcheur un, catcheur deux, string actionPrecedenteUn, string actionPrecedenteDeux)
-        {
-            int unAttaque = new Random().Next(2);
-
-            if (unAttaque == 1)
-            {
-                Console.WriteLine(un.Nom + " attaque son adversaire");
-                if (actionPrecedenteDeux == "defense")
-                {
-                    Console.WriteLine(deux.Nom + " avait preparer sa defence !");
-                    deux.PV = deux.PV - un.Attaque + deux.Defense;
-                }
-                else
-                {
-                    deux.PV = deux.PV - un.Attaque;
-                }
-                actionPrecedenteUn = "attaque";
-            }
-            else
-            {
-                Console.WriteLine(deux.Nom + " prepare sa defense");
-                actionPrecedenteUn = "defense";
-            }
-        }
-
-        static void FinDuMatchNbreIterationAtteind (catcheur vainqueur, catcheur perdant, match match)
-        {
-            match.Gagnant = vainqueur.Nom;
-            match.Perdant = perdant.Nom;
-            vainqueur.RestaurePV();
-            perdant.NombreSamediAttente = new Random().Next(7);
-            perdant.EtatCatcheur = "enConvalescence";
-        }
-
-        static void FinDuMatchMort (catcheur catcheurMort, catcheur catcheurVivant, match match)
-        {
-            match.Gagnant = catcheurMort.Nom;
-            match.Perdant = catcheurVivant.Nom;
-            catcheurMort.EtatCatcheur = "aLaMorgue";
-            if (catcheurVivant.PV < 60)
-            {
-                catcheurVivant.NombreSamediAttente = new Random().Next(7);
-                catcheurVivant.EtatCatcheur = "enConvalescence";
-                catcheurVivant.RestaurePV();
-            }
-
-        }
-
-        static match matchDuSamedi(catcheur un, catcheur deux)
-        {
-            match match = new match();
-            match.NbreIteration = 0;
-            int randomInitUn = new Random().Next(101);
-            int randomInitDeux = new Random().Next(101);
-            string actionPrecedenteUn = "";
-            string actionPrecedenteDeux = "";
-
-
-            while ((match.NbreIteration != 20) && (un.PV > 0) && (deux.PV > 20))
-            {
-                Console.ReadLine();
-                match.NbreIteration++;
-                Console.WriteLine("Tour numero: " + match.NbreIteration);
-                if (randomInitUn >= randomInitDeux)
-                {
-                    Console.WriteLine(un.Nom + "commence ce tour ! ");
-                    action(un, deux, actionPrecedenteUn, actionPrecedenteDeux);
-                    action(deux, un, actionPrecedenteDeux, actionPrecedenteUn);
-                }
-
-                else
-                {
-                    Console.WriteLine(deux.Nom + "commence ce tour ! ");
-                    action(deux, un, actionPrecedenteDeux, actionPrecedenteUn);
-                    action(un, deux, actionPrecedenteUn, actionPrecedenteDeux);
-                }
-
-                un.afficherPV();
-                deux.afficherPV();
-                match.ArgentRecolte += 5000.0;
-				randomInitUn = new Random().Next(101);
-				randomInitDeux = new Random().Next(101);
-
-            }
-
-            if (match.NbreIteration == 20)
-            {
-                Console.WriteLine("Match fini, fin des 20 tours:");
-				match.TypeVictoire = "Fin du delai imparti";
-				match.ArgentRecolte += 1000.0;
-                if (un.PV > deux.PV)
-                {
-                    FinDuMatchNbreIterationAtteind(un,deux,match);
-                }
-                else
-                {
-                    FinDuMatchNbreIterationAtteind(deux,un,match);
-                }
-            }
-            if (un.PV < 1)
-            {
-                Console.WriteLine("Fin du match: " + un.Nom + "est mort");
-                FinDuMatchMort(un,deux,match);
-            }
-			if (deux.PV < 1)
-			{
-				Console.WriteLine("Fin du match: " + deux.Nom + "est mort");
-				FinDuMatchMort(deux, un, match);
-			}
-
-            Console.WriteLine("Recapitulatif Match: ");
-            match.afficher();
-            return match;
-        }
-
-        static void historiqueMatch(List<match> liste)
-        {
-            for (int i = 0; i < liste.Count; i++)
-            {
-                liste[i].afficher();
-            }
-
-        }
-
-        static bool TestJeuFini(List<catcheur> liste)
-        {
-            int compteNombreValable = 0;
-            for (int i = 0; i < liste.Count; i++)
-            {
-                if (liste[i].PV > 0)
-                {
-                    compteNombreValable++;
-                }
-            }
-            if (compteNombreValable > 2)
-            {
-                return (false);
-            }
-            else
-            {
-                return (true);
-            }
-        }
-
-
-        static void AffichageParticulier(List<match> liste)
-        {
-            Console.WriteLine("Affichage par KO (1) ou affichage par Delai (2)?");
-            string reponseString = Console.ReadLine();
-            int reponse = int.Parse(reponseString);
-            if (reponse == 2)
-            {
-                List<match> matchsDelai = liste.Where(m => m.NbreIteration == 20).ToList();
-                historiqueMatch(matchsDelai);
-            }
-            else
-            {
-                List<match> matchsKO = liste.Where(m => m.NbreIteration < 20).ToList();
-                historiqueMatch(matchsKO);
-            }
-        }
-
-        static void afficherCatcheurParticulier(List<catcheur> liste)
-        {
-            Console.WriteLine("Qui cherchez vous ? ");
-            string reponseString = Console.ReadLine();
-            List<catcheur> catcheurRecherche = liste.Where(c => c.Nom == reponseString).ToList();
-            if (catcheurRecherche[0].Nom == reponseString)
-            {
-                catcheurRecherche[0].afficher();
-            }
-            else
-            {
-                Console.WriteLine("Catcheur introuvable");
-            }
-        }
-
         public static void Main()
         {
-
-            List<catcheur> listeCatcheur = creationCatcheur();
+            //initialisation des variables a utiliser
+            List<catcheur> listeCatcheur = intitialisation.creationCatcheur();
             saisonEncours jeu = new saisonEncours();
             List<match> recapitulatifMatch = new List<match>();
             bool jeuFini = false;
             bool combatSemaineFait = false;
             match samedi = new match();
 
-            while (!jeuFini)
+
+            while (!jeuFini) 
             {
-                
                 Console.WriteLine("Debut de la semaine ! ");
                 for (int i = 0; i < listeCatcheur.Count; i++)
                 {
@@ -276,6 +41,7 @@ namespace projet_final
                     Console.WriteLine("** 1 : Consulter historique des matchs**");
                     Console.WriteLine("** 2 : Consulter contact **");
                     Console.WriteLine("** 3 : Quitter le jeu **");
+                    Console.WriteLine("** 4 : affichage score en cours **");
                     Console.WriteLine("*****************************************");
 
 
@@ -285,20 +51,20 @@ namespace projet_final
                     {
                         reponseString = Console.ReadLine();
                         reponse = int.Parse(reponseString);
-                    } while (reponse != 0 && reponse != 1 && reponse != 2 && reponse != 3);
+                    } while (reponse != 0 && reponse != 1 && reponse != 2 && reponse != 3 && reponse != 4);
 
 
                     switch (reponse)
                     {
                         case 0:
-                            afficherCatcheurs(listeCatcheur);
+                            affichages.afficherCatcheurs(listeCatcheur);
                             Console.WriteLine("** Choix premier catcheur :  **");
-                            catcheur premierCatcheurChoisit = choisirCatcheur(listeCatcheur);
+                            catcheur premierCatcheurChoisit = catcheur.choisirCatcheur(listeCatcheur);
                             Console.WriteLine("** Choix second catcheur :  **");
-                            catcheur secondCatcheurChoisit = choisirCatcheur(listeCatcheur);
+                            catcheur secondCatcheurChoisit = catcheur.choisirCatcheur(listeCatcheur);
 
                             Console.WriteLine("** Lancement du match:  **");
-                            samedi = matchDuSamedi(premierCatcheurChoisit,secondCatcheurChoisit);
+                            samedi = match.matchDuSamedi(premierCatcheurChoisit,secondCatcheurChoisit);
                             recapitulatifMatch.Add(samedi);
 
                             combatSemaineFait = true;
@@ -308,11 +74,11 @@ namespace projet_final
                             reponseString = Console.ReadLine();
                             if (reponseString == "oui")
                             {
-                                AffichageParticulier(recapitulatifMatch);
+                                affichages.AffichageMatchParticulier(recapitulatifMatch);
                             }
                             else
                             {
-                                historiqueMatch(recapitulatifMatch);
+                                affichages.AfficheHistoriqueMatch(recapitulatifMatch);
                             }
                             break;
                         case 2:
@@ -320,11 +86,11 @@ namespace projet_final
                             reponseString = Console.ReadLine();
                             if (reponseString == "oui")
                             {
-                                afficherCatcheurParticulier(listeCatcheur);
+                                affichages.afficherCatcheurParticulier(listeCatcheur);
                             }
                             else
                             {
-                                afficherCatcheurs(listeCatcheur);
+                                affichages.afficherCatcheurs(listeCatcheur);
                             }
                             break;
                         case 3:
@@ -340,6 +106,9 @@ namespace projet_final
                                 combatSemaineFait = true;
                                 jeuFini = true;
                             }
+                            break;
+                        case 4:
+                            affichages.afficheScoreJeuEnCours(jeu);
                             break;
                         default:
                             break;
@@ -365,7 +134,8 @@ namespace projet_final
                 }
 
                 combatSemaineFait = false;
-                jeuFini = TestJeuFini(listeCatcheur);
+                jeuFini = saisonEncours.TestJeuFini(listeCatcheur);
+
 
 
             }
